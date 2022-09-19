@@ -1,4 +1,6 @@
 import calendar from "./calendar.png";
+import Footer from "./components/footer.jsx"
+import Users from "./components/Users.jsx"
 import "./App.css";
 
 function App() {
@@ -10,39 +12,7 @@ function App() {
       </header>
 
       <main>
-        <div className="user-and-events">
-          <section className="user-management">
-            <h2>User Management</h2>
-
-            <ul id="users-list">
-              {/* display all existing Users here */}
-              <li>...</li>
-            </ul>
-
-            <div>
-              <h3>Add User</h3>
-              <form id="add-user" action="#">
-                <fieldset>
-                  <label>Name</label>
-                  <input type="text" id="add-user-name" />
-                </fieldset>
-                {/* Add more form fields here */}
-                <input type="submit" value="Add" />
-              </form>
-            </div>
-
-            <div>
-              <h3>Delete User</h3>
-              <form id="delete-user" action="#">
-                <fieldset>
-                  <label>User ID</label>
-                  <input type="text" id="delete-user-id" />
-                </fieldset>
-                <input type="submit" />
-              </form>
-            </div>
-          </section>
-
+        <Users />
           <section className="event-management">
             <h2>Event Management</h2>
             <div>
@@ -66,9 +36,7 @@ function App() {
                 <input type="submit" />
               </form>
             </div>
-          </section>
-        </div>
-
+{/* why is delete event not in user and events */}
         <div>
           <h3>Delete Event</h3>
           <form id="delete-event" action="#">
@@ -79,8 +47,12 @@ function App() {
             <input type="submit" />
           </form>
         </div>
+      </section>
+
+      <section className="directoryr">
 
         <aside className="search-toolbar">
+        <h2>Directory Search</h2>
           <div>
             <h3>Find Events</h3>
             <form id="search" action="#">
@@ -97,7 +69,11 @@ function App() {
             </form>
           </div>
         </aside>
+      </section>
       </main>
+      <div className="Footer">
+        <Footer />
+      </div>
     </div>
   );
 }

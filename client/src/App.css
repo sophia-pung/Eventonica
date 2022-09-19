@@ -1,21 +1,26 @@
 fieldset {
+  /* around form fields, a border line is automatically added  */
   border: none;
+  /* this adds a margin of 1rem (https://elementor.com/help/whats-the-difference-between-px-em-rem-vw-and-vh/) to the form fields */
   margin: 1rem 0;
 }
 
 header {
-  /* For more about flexbox, see https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+  /* puts all things contained within header on the same line For more about flexbox, see https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
   display: flex;
+  /* centers items vertically */
   align-items: center;
 }
 
 header img {
+  /* resizes header image */
   height: 64px;
   margin-right: 1em;
 }
 
 main {
   display: flex;
+  /* space-between; /* Distribute items evenly. The first item is flush with the start, the last is flush with the end */
   justify-content: space-between;
 }
 
@@ -27,4 +32,10 @@ footer {
   margin-top: 1rem;
   font-size: small;
   color: gray;
+}
+
+.Footer {
+  display: flex;
+  justify-content: center;
+  margin: 17rem 0;
 }
