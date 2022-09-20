@@ -8,7 +8,7 @@ const nemo = { name: "Nemo", email: "nemo@gmail.com", id: "2" };
 const dory = { name: "Dory", email: "dory@gmail.com", id: "3" };
 
 const Users = () => {
-  //stores users in an array, initialized from hardcode
+  //stores users in an array, initialized from hardcode, ARRAY OF OBJECTS
   const [users, setUsers] = useState([marlin, nemo, dory]);
   //stores the user input into new user
   //const [newUser, setNewUser] = useState({ name: "", email: "", id: "" });
@@ -22,8 +22,9 @@ const Users = () => {
   // All of these states can be defined in the component
   const handleSubmit = (e) => {
     e.preventDefault();
+    //creates a new user profile with all of the updated values for name, id, email, and name
     const newUser = { id: id, name: name, email: email };
-    //add newUser to users list, by unwrapping user array and adding a new user to it
+    //add newUser to users list, by unwrapping user array and adding a new user to it, ALWAYS saves the previous users
     setUsers([...users, newUser]);
   };
 
@@ -41,10 +42,11 @@ const Users = () => {
       <h2>User Management</h2>
 
       <ul id="users-list">
-        {/* display all existing Users here */}
+        {/* display all existing Users on the page */}
         {users.map((user, index) => {
           return (
             <li key={index}>
+            {/* each thing inside map is an object */}
               Name: {user.name}, Email: {user.email}
             </li>
           );
@@ -61,6 +63,7 @@ const Users = () => {
               type="text"
               id="add-user-name"
               value={name}
+              //setting the value that the user input into the name input by calling the setName useState function to update the name variable
               onChange={(e) => setName(e.target.value)}
             />
           </fieldset>
@@ -82,7 +85,7 @@ const Users = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </fieldset>
-          {/* Add more form fields here */}
+          {/* calls the handleSubmit functino with all of the fields filled out */}
           <input type="submit" value="Add" onClick={handleSubmit} />
         </form>
         <DeleteUser onDelete={handleDelete}/>
