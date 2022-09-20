@@ -1,6 +1,7 @@
 import calendar from "./calendar.png";
 import Footer from "./components/footer.jsx"
 import Users from "./components/Users.jsx"
+import DeleteUser from "./components/DeleteUser.jsx"
 import "./App.css";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
 
       <main>
         <Users />
+        <DeleteUser />
           <section className="event-management">
             <h2>Event Management</h2>
             <div>

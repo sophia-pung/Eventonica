@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import DeleteUser from "./DeleteUser";
 
 //hardcoded objects into array
 const marlin = { name: "Marlin", email: "marlin@gmail.com", id: "1" };
@@ -10,11 +11,11 @@ const Users = () => {
   //stores users in an array, initialized from hardcode
   const [users, setUsers] = useState([marlin, nemo, dory]);
   //stores the user input into new user
-  const [newUser, setNewUser] = useState({ name: "", email: "", id: "" });
+  //const [newUser, setNewUser] = useState({ name: "", email: "", id: "" });
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [id, setId] = useState();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   // id, name, and email are states that store what values the user types in those fields
   // users is an array of user objects
@@ -22,8 +23,17 @@ const Users = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newUser = { id: id, name: name, email: email };
-    //add newUser to users list
+    //add newUser to users list, by unwrapping user array and adding a new user to it
     setUsers([...users, newUser]);
+  };
+
+  const handleDelete = (deletedId) => {
+    const filteredUsers = users.filter((user) => {
+      return user.id != deletedId;
+    });
+    // set changes data and tells React to re-render the screen
+    setUsers(filteredUsers);
+    //setNewUser({...newUser, name: "sam", email: 'sam.com', id: 123})
   };
 
   return (
@@ -33,11 +43,11 @@ const Users = () => {
       <ul id="users-list">
         {/* display all existing Users here */}
         {users.map((user, index) => {
-            return (
-                <li key={index}>
-                    Name: {user.name}, Email: {user.email}
-                </li>
-            );
+          return (
+            <li key={index}>
+              Name: {user.name}, Email: {user.email}
+            </li>
+          );
         })}
       </ul>
 
@@ -47,30 +57,35 @@ const Users = () => {
           {/* all formfields are contained in the fieldset tag so they can all be manipulated at once */}
           <fieldset>
             <label>Name</label>
-            <input type="text" id="add-user-name" value={name} onChange={(e) => setName(e.target.value)}/>
+            <input
+              type="text"
+              id="add-user-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </fieldset>
           <fieldset>
             <label>ID</label>
-            <input type="number" id="add-user-id" value={id} onChange={(e) => setId(e.target.value)}/>
+            <input
+              type="number"
+              id="add-user-id"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
           </fieldset>
           <fieldset>
             <label>Email</label>
-            <input type="text" id="add-user-email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <input
+              type="text"
+              id="add-user-email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </fieldset>
           {/* Add more form fields here */}
-          <input type="submit" value="Add" onClick ={handleSubmit}/>
+          <input type="submit" value="Add" onClick={handleSubmit} />
         </form>
-      </div>
-
-      <div>
-        <h3>Delete User</h3>
-        <form id="delete-user" action="#">
-          <fieldset>
-            <label>User ID</label>
-            <input type="text" id="delete-user-id" />
-          </fieldset>
-          <input type="submit" />
-        </form>
+        <DeleteUser onDelete={handleDelete}/>
       </div>
     </div>
   );
