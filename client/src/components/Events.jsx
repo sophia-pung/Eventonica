@@ -97,6 +97,7 @@ const Events = () => {
     // console.log(events);
     // console.log(filteredEvents)
     setEvents( filteredEvents ); // <-- already an array
+    setDeleteId('')
     //setNewUser({...newUser, name: "sam", email: 'sam.com', id: 123})
   };
 
