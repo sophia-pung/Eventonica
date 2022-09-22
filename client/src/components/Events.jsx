@@ -56,8 +56,9 @@ const Events = () => {
       case "editDate":
         return { ...state, date: action.payload };
       case "editId":
-        return { ...state, date: action.payload };
-
+        console.log("TEST")
+        console.log("payload", action.payload)
+        return { ...state, id: action.payload };
       default:
         return state;
     }
@@ -81,17 +82,23 @@ const Events = () => {
     setEvents([...events, state]);
     //call dispatch insted > setNewEvent({ name: newEvent.name });
     //add newUser to users list, by unwrapping user array and adding a new user to it
-
   };
 
-  const handleDelete = (deletedId) => {
+  //handle delete event function
+  //const [events, setEvents] = useState([event1, event2, event3]);
+  //passing in element that is causing the change 
+  const handleDelete = (e) => {
+    console.log("handleDeleteId", id)
     const filteredEvents = events.filter((event) => {
-      return event.id != deletedId;
+      return event.id != id;
     });
     // set changes data and tells React to re-render the screen
-    setEvents(filteredEvents);
+    // console.log(events);
+    // console.log(filteredEvents)
+    setEvents([filteredEvents]);
     //setNewUser({...newUser, name: "sam", email: 'sam.com', id: 123})
   };
+
   // const handleDelete = (deletedId) => {
   //   const filteredUsers = users.filter((user) => {
   //     return user.id != deletedId;
@@ -200,10 +207,15 @@ const Events = () => {
       {/* why is delete event not in user and events */}
       <div>
         <h3>Delete Event</h3>
-        <form id="delete-event" action="#">
+        <form id="delete-event" action="#" onSubmit = {handleDelete}>
           <fieldset>
             <label>Event ID</label>
-            <input type="number" min="1" id="delete-event-id" />
+            <input type="number" value={state.deleteId} min="1" id="delete-event-id" onChange={(e) =>
+                dispatch({
+                  type: "editId",
+                  payload: e.target.value,
+                })
+              }/>
           </fieldset>
           <input type="submit" />
         </form>
