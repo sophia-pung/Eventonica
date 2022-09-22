@@ -35,7 +35,7 @@ const Events = () => {
   const initialState = {
     id: "",
     name: "",
-    date: null,
+    date: "",
     description: "",
     category: "",
   };
@@ -55,14 +55,16 @@ const Events = () => {
 
       case "editDate":
         return { ...state, date: action.payload };
+
       case "editId":
-        console.log("TEST")
-        console.log("payload", action.payload)
+        console.log("TESTTTT", action.payload)
         return { ...state, id: action.payload };
+        
       default:
         return state;
     }
   };
+  //creating the state object in the variable state (everything contstructed in reducer needs to be referenced using state.name, ect. )
   const [state, dispatch] = React.useReducer(reducer, initialState);
   //const [events, setEvents] = useState([]);
   //stores the user input into new user
@@ -74,6 +76,8 @@ const Events = () => {
   //     category: "",
   //   });
 
+  const [deleteId, setDeleteId] = useState("")
+
   // id, name, and email are states that store what values the user types in those fields
   // users is an array of user objects
   // All of these states can be defined in the component
@@ -83,22 +87,29 @@ const Events = () => {
     //call dispatch insted > setNewEvent({ name: newEvent.name });
     //add newUser to users list, by unwrapping user array and adding a new user to it
   };
-
-  //handle delete event function
-  //const [events, setEvents] = useState([event1, event2, event3]);
-  //passing in element that is causing the change 
-  const handleDelete = (e) => {
-    console.log("handleDeleteId", id)
+  const handleDelete = () => {
+    console.log("handleDeleteId", deleteId) // <-- with reducer, `id` is part of `state`
     const filteredEvents = events.filter((event) => {
-      return event.id != id;
+      return event.id != deleteId;
     });
+    console.log("events", events)
     // set changes data and tells React to re-render the screen
     // console.log(events);
     // console.log(filteredEvents)
-    setEvents([filteredEvents]);
+    setEvents( filteredEvents ); // <-- already an array
     //setNewUser({...newUser, name: "sam", email: 'sam.com', id: 123})
   };
 
+//   const handleDelete = (deletedId) => {
+//     console.log("test")
+//     console.log("test2", deletedId)
+//     const filteredEvents = events.filter((event) => {
+//       return event.id != deletedId;
+//     });
+//     // set changes data and tells React to re-render the screen
+//     setEvents(filteredEvents);
+//     //setNewUser({...newUser, name: "sam", email: 'sam.com', id: 123})
+//   };
   // const handleDelete = (deletedId) => {
   //   const filteredUsers = users.filter((user) => {
   //     return user.id != deletedId;
@@ -207,17 +218,12 @@ const Events = () => {
       {/* why is delete event not in user and events */}
       <div>
         <h3>Delete Event</h3>
-        <form id="delete-event" action="#" onSubmit = {handleDelete}>
+        <form id="delete-event" action="#" onSubmit={handleDelete}>
           <fieldset>
             <label>Event ID</label>
-            <input type="number" value={state.deleteId} min="1" id="delete-event-id" onChange={(e) =>
-                dispatch({
-                  type: "editId",
-                  payload: e.target.value,
-                })
-              }/>
+            <input type="number" value={deleteId} min="1" id="delete-event-id" onChange={(e) => setDeleteId(e.target.value)}/>
           </fieldset>
-          <input type="submit" />
+          <input type="submit"/>
         </form>
       </div>
     </section>
