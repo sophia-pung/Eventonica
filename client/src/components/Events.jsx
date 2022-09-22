@@ -59,6 +59,8 @@ const Events = () => {
       case "editId":
         console.log("TESTTTT", action.payload)
         return { ...state, id: action.payload };
+    case "clear":
+        return initialState
         
       default:
         return state;
@@ -84,6 +86,7 @@ const Events = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setEvents([...events, state]);
+    dispatch({type: "clear" });
     //call dispatch insted > setNewEvent({ name: newEvent.name });
     //add newUser to users list, by unwrapping user array and adding a new user to it
   };
