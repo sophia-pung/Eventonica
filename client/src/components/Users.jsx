@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteUser from "./DeleteUser";
 
 //hardcoded objects into array
@@ -8,6 +8,20 @@ const nemo = { name: "Nemo", email: "nemo@gmail.com", id: "2" };
 const dory = { name: "Dory", email: "dory@gmail.com", id: "3" };
 
 const Users = () => {
+  const [userList, setUserList] = useState([]);
+
+  console.log("users", userList);
+
+  const getUsers = () => {
+    fetch("http://localhost:4000/users")
+      .then((res) => res.json())
+      .then((res) => setUserList(res.users));
+  };
+
+  useEffect(() => {
+    // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
+    getUsers();
+  }, []);
   //stores users in an array, initialized from hardcode, ARRAY OF OBJECTS
   const [users, setUsers] = useState([marlin, nemo, dory]);
   //stores the user input into new user
@@ -46,7 +60,7 @@ const Users = () => {
         {users.map((user, index) => {
           return (
             <li key={index}>
-            {/* each thing inside map is an object */}
+              {/* each thing inside map is an object */}
               Name: {user.name}, Email: {user.email}
             </li>
           );
@@ -88,7 +102,7 @@ const Users = () => {
           {/* calls the handleSubmit functino with all of the fields filled out */}
           <input type="submit" value="Add" onClick={handleSubmit} />
         </form>
-        <DeleteUser onDelete={handleDelete}/>
+        <DeleteUser onDelete={handleDelete} />
       </div>
     </div>
   );

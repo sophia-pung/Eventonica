@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useReducer } from "react";
 
 // some sample events
@@ -39,6 +39,22 @@ const Events = () => {
     description: "",
     category: "",
   };
+
+  const [eventList, setEventList] = useState([]);
+
+  console.log("events", eventList);
+
+  const getEvents = () => {
+    fetch("http://localhost:4000/events")
+      .then((res) => res.json())
+      .then((res) => setEventList(res.events));
+  };
+
+  useEffect(() => {
+    // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
+    getEvents();
+  }, []);
+
   //must create the function because it's not pre-defined as useState is
   const reducer = (state, action) => {
     console.log(action, "this is the action");

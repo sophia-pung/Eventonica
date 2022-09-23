@@ -7,8 +7,10 @@ import { fileURLToPath } from 'url';
 import eventsRouter from "./routes/events.mjs";
 import indexRouter from './routes/index.mjs';
 import usersRouter from './routes/users.mjs';
+import cors from 'cors';
 
 var app = express();
+app.use(cors());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
