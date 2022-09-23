@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+//import app from "../../../server/app.mjs";
 import DeleteUser from "./DeleteUser";
 
 //hardcoded objects into array
@@ -18,6 +19,18 @@ const Users = () => {
       .then((res) => setUserList(res.users));
   };
 
+//   const postUsers = () => {
+//     fetch("http://localhost:4000/users", {
+//       method: "POST",
+//       body: JSON.stringify(newUser),
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((res) => res.json())
+//       .then((json) => console.log(json));
+//   };
+
   useEffect(() => {
     // useEffect will run getUsers() every time this component loads, as opposed to just the first time it is rendered.
     getUsers();
@@ -34,13 +47,34 @@ const Users = () => {
   // id, name, and email are states that store what values the user types in those fields
   // users is an array of user objects
   // All of these states can be defined in the component
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //creates a new user profile with all of the updated values for name, id, email, and name
     const newUser = { id: id, name: name, email: email };
+    await fetch("http://localhost:4000/users", {
+      method: "POST",
+      body: JSON.stringify(newUser),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => console.log(json));
     //add newUser to users list, by unwrapping user array and adding a new user to it, ALWAYS saves the previous users
     setUsers([...users, newUser]);
+    setName("");
+    setEmail("");
+    setId("");
   };
+
+  //   let addUser = () => {
+  //     router.post("/", function (req, res, next) {
+  //       // save request data to a variable in routes/users.js
+  //       res.send(
+  //         "some message about your data being saved, and a copy of that data"
+  //       );
+  //     });
+  //   };
 
   const handleDelete = (deletedId) => {
     const filteredUsers = users.filter((user) => {

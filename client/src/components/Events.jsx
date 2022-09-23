@@ -28,7 +28,7 @@ const event3 = {
   category: "Education",
 };
 
-const Events = () => {
+const Events12 = () => {
   //stores users in an array, initialized from hardcode
   const [events, setEvents] = useState([event1, event2, event3]);
   //defining the intial state for the event
@@ -60,19 +60,24 @@ const Events = () => {
     console.log(action, "this is the action");
     switch (action.type) {
       case "editName":
+        console.log("STATE", state)
         console.log("Logged if the editName action is being dispatched");
         return { ...state, name: action.payload };
 
       case "editDescription":
+        console.log("STATE", state)
         return { ...state, description: action.payload };
 
       case "editCategory":
+        console.log("STATE", state)
         return { ...state, category: action.payload };
 
       case "editDate":
+        console.log("STATE", state)
         return { ...state, date: action.payload };
 
       case "editId":
+        console.log("STATE", state)
         console.log("TESTTTT", action.payload)
         return { ...state, id: action.payload };
     case "clear":
@@ -250,4 +255,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default Events12;
